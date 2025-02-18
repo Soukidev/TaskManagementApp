@@ -1,35 +1,47 @@
-const User = require('../models/userModel');
+const User = require('../models/user-model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const registerUser = async (req, res) => {
-  const { name, email, password } = req.body;
 
+exports.registerUser  = async (req, res) => {
   try {
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-      return res.status(400).json({ message: 'User already exists' });
+    const { username, email, password } = req.body;
+
+    const existingUser  = await User.findOne({ email });
+    if (existingUser ) {
+      return res.status(400).json({ message: 'User  already exists' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-    const user = await User.create({ name, email, password: hashedPassword });
+    const user = new User({
+      username,
+      email,
+      password: hashedPassword
+    });
 
-    res.status(201).json({ message: 'User registered successfully' });
+    await user.save();
+
+    res.status(201).json({ message: 'User  registered successfully' });
   } catch (error) {
+    console.error('Registration error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
 
 
-const loginUser = async (req, res) => {
-  const { email, password } = req.body;
 
+exports.loginUser  = async (req, res) => {
   try {
+    const { email, password } = req.body;
+
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
+
+    console.log('Retrieved user:', user); // Log the retrieved user
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
@@ -37,13 +49,12 @@ const loginUser = async (req, res) => {
     }
 
     const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
-      expiresIn: '10d', //the problem was here, it should be '2d' instead of '2'
+      expiresIn: '2d',
     });
 
-    res.json({ token, user: { id: user._id, name: user.name, email: user.email } });
+    res.json({ token });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 };
-
-module.exports = { registerUser, loginUser };
