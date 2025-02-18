@@ -15,8 +15,8 @@ exports.createTask = async (req, res) => {
   try {
     const { title, description, status, priority, deadline } = req.body;
 
-    // Ensure user is authenticated and user ID is available
-    const userId = req.user.id; // Assuming you have user authentication middleware
+    
+    const userId = req.user.id;
 
     const task = new Task({
       title,
@@ -24,7 +24,7 @@ exports.createTask = async (req, res) => {
       status,
       priority,
       deadline,
-      user: userId, // Associate the task with the authenticated user
+      user: userId, 
     });
 
     await task.save();
