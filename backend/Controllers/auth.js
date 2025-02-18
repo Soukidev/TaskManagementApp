@@ -1,11 +1,11 @@
-const User = require('../models/user-model');
+const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 
 exports.registerUser  = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { name, email, password } = req.body;
 
     const existingUser  = await User.findOne({ email });
     if (existingUser ) {
@@ -16,7 +16,7 @@ exports.registerUser  = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = new User({
-      username,
+      name,
       email,
       password: hashedPassword
     });
@@ -31,17 +31,14 @@ exports.registerUser  = async (req, res) => {
 };
 
 
+exports.loginUser = async (req, res) => {
+  const { email, password } = req.body;
 
-exports.loginUser  = async (req, res) => {
   try {
-    const { email, password } = req.body;
-
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
-
-    console.log('Retrieved user:', user); // Log the retrieved user
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
@@ -49,12 +46,11 @@ exports.loginUser  = async (req, res) => {
     }
 
     const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
-      expiresIn: '2d',
+      expiresIn: '2d', //the problem was here, it should be '2d' instead of '2'
     });
 
-    res.json({ token });
+    res.json({ token, user: { id: user._id, name: user.name, email: user.email } });
   } catch (error) {
-    console.error('Login error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
