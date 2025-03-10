@@ -15,8 +15,9 @@ export default function LandingPage() {
     <div className="bg-gradient-to-b from-black via-purple-900 to-black text-white">
       <Navbar />
       <Hero />
-      <SignUp />
+      
       <Features />
+      <SignUp />
       <Pricing />
       <Footer />
     </div>

@@ -7,13 +7,14 @@ export default function Pricing() {
             Designed for business teams like yours
           </h2>
           <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
-            Here at Flowbite we focus on markets where technology, innovation,
+            Here at FocusFlow we focus on markets where technology, innovation,
             and capital can unlock long-term value and drive economic growth.
           </p>
         </div>
         <div class="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
           {/* <!-- Pricing Card --> */}
-          <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
+          <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow transition-all duration-300 hover:shadow-lg hover:-translate-y-2 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
+
             <h3 class="mb-4 text-2xl font-semibold">Starter</h3>
             <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
               Best option for personal use & for your next project.
@@ -119,7 +120,10 @@ export default function Pricing() {
             </a>
           </div>
           {/* <!-- Pricing Card --> */}
-          <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
+
+          <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow transition-all duration-300 hover:shadow-lg hover:-translate-y-2 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-purple-700">
+
+  
             <h3 class="mb-4 text-2xl font-semibold">Company</h3>
             <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
               Relevant for multiple users, extended & premium support.
