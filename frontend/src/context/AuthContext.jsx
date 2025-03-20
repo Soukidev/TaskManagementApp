@@ -33,6 +33,24 @@ const AuthProvider = ({ children }) => {
       throw error;
     }
   };
+  // Add this register function
+  const register = async (name, email, password) => {
+    try {
+      const res = await API.post("/auth/register", { name, email, password });
+      console.log("✅ Registration response:", res.data); // 👈 ADD THIS LINE
+
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      setUser(res.data.user);
+      API.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
+    } catch (error) {
+      console.error(
+        "❌ Registration failed:",
+        error.response?.data || error.message
+      );
+      throw error;
+    }
+  };
 
   // Logout function
   const logout = () => {
@@ -43,7 +61,9 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, login, logout, loading }}>
+    <AuthContext.Provider
+      value={{ user, setUser, register, login, logout, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );

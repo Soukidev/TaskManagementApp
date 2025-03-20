@@ -42,7 +42,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-              placeholder="name@company.com"
+              placeholder="name@focusflow.com"
               required
             />
           </div>
@@ -77,12 +77,12 @@ const Login = () => {
                 Remember me
               </label>
             </div>
-            <a
+            {/* <a
               href="#"
               className="text-sm text-primary-600 hover:underline dark:text-primary-500"
             >
               Forgot password?
-            </a>
+            </a> */}
           </div>
           <button
             type="submit"
@@ -95,7 +95,7 @@ const Login = () => {
             <a
               onClick={() => navigate("/register")}
               // href="/register"
-              className="text-primary-600 hover:underline dark:text-primary-500"
+              className="text-amber-600 hover:underline dark:text-primary-500"
             >
               Sign up
             </a>
