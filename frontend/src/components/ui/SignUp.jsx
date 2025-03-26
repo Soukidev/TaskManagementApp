@@ -18,13 +18,11 @@ export default function SignUp() {
           <button
             onClick={() => navigate("/register")}
             className="px-8 py-3 text-lg font-semibold rounded transition-all duration-300 hover:bg-violet-700 dark:bg-violet-600 dark:text-gray-50 hover:scale-105"
-
           >
             Get ur account
           </button>
           <button
             className="px-8 py-3 text-lg font-normal border rounded transition-all duration-300 hover:bg-gray-700 hover:border-gray-600 dark:bg-gray-800 dark:text-gray-50 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:border-gray-600 hover:scale-105"
-
             onClick={() => navigate("/login")}
           >
             Learn more login

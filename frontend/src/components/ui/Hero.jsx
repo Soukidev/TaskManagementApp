@@ -1,7 +1,7 @@
 export default function HeroSection() {
   return (
     <section className="bg-purple-900 dark:bg-gray-900">
-      <div className="py-12 px-4 mx-auto max-w-screen-xl text-center lg:py-20 lg:px-12">
+      <div className="py-12 px-4 mx-auto max-w-screen-Xl text-center lg:py-34 lg:px-12">
         <a
           href="#"
           className="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-white bg-purple-700 rounded-full dark:bg-purple-800 hover:bg-purple-800 dark:hover:bg-purple-700"
@@ -34,7 +34,7 @@ export default function HeroSection() {
         </p>
         <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
           <a
-            href="#"
+            href="http://localhost:5173/register"
             className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-purple-600 bg-white rounded-lg hover:bg-purple-50 focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-900"
           >
             Get Started

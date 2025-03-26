@@ -1,17 +1,48 @@
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { getTasks } from "../api/axios";  // Importing API function to get tasks
 
 const Dashboard = () => {
-  const navigate = useNavigate();
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      setLoading(true);
+      try {
+        const response = await getTasks();
+        setTasks(response.data);
+      } catch (err) {
+        setError("Failed to load tasks.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTasks();
+  }, []);
+
+  if (loading) return <p>Loading tasks...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
-      <button
-        onClick={() => navigate("/create-task")}
-        className="px-6 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition"
-      >
-        Create New Task
-      </button>
+    <div>
+      <h1>Dashboard</h1>
+      <div>
+        <button onClick={() => window.location.href = "/create-task"}>Create New Task</button>
+        <button onClick={() => window.location.href = "/kanban-board"}>Go to Kanban Board</button>
+      </div>
+
+      <h2>Your Tasks</h2>
+      <ul>
+        {tasks.map((task) => (
+          <li key={task._id}>
+            <h3>{task.title}</h3>
+            <p>{task.description}</p>
+            <p>Deadline: {task.deadline}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
